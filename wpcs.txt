@@ -1,0 +1,41 @@
+
+FILE: /var/www/html/price-scheduler/wp-content/plugins/price-scheduler/inc/class.admin-price-scheduler.php
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+FOUND 25 ERRORS AND 7 WARNINGS AFFECTING 25 LINES
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   1 | ERROR   | Class file names should be based on the class name with "class-" prepended. Expected class-price-scheduler.php, but found class.admin-price-scheduler.php.
+   2 | ERROR   | You must use "/**" style comments for a file comment
+   2 | ERROR   | Inline comments must end in full-stops, exclamation marks, or question marks
+  12 | ERROR   | Class name must begin with a capital letter
+  12 | ERROR   | Class name is not valid; consider Price_Scheduler instead
+  13 | WARNING | Property name "$_instance" should not be prefixed with an underscore to indicate visibility
+  13 | ERROR   | Missing member variable doc comment
+  15 | ERROR   | Missing doc comment for function instance()
+  23 | ERROR   | Missing doc comment for function price_scheduler_meta_keys()
+  31 | ERROR   | Missing doc comment for function __construct()
+  31 | ERROR   | Visibility must be declared on method "__construct"
+  38 | ERROR   | Missing doc comment for function price_scheduler_plugins_loaded()
+  39 | WARNING | Not using strict comparison for in_array; supply true for third argument.
+  42 | WARNING | Processing form data without nonce verification.
+  43 | WARNING | Processing form data without nonce verification.
+  51 | ERROR   | Function return type is not void, but function has no return statement
+  53 | ERROR   | Visibility must be declared on method "action__cfgeo_admin_notices_deactive"
+  56 | ERROR   | All output should be run through an escaping function (see the Security sections in the WordPress Developer Handbooks), found '__'.
+  56 | ERROR   | A gettext call containing placeholders was found, but was not accompanied by a "translators:" comment on the line above to clarify the meaning of the placeholders.
+  56 | WARNING | Strings should not be wrapped in HTML
+  62 | ERROR   | Missing doc comment for function price_scheduler_add_new_price_meta_field()
+  75 | ERROR   | All output should be run through an escaping function (see the Security sections in the WordPress Developer Handbooks), found '$schedule_date_on_key'.
+  76 | ERROR   | All output should be run through an escaping function (see the Security sections in the WordPress Developer Handbooks), found '$schedule_date_on_key'.
+  76 | ERROR   | All output should be run through an escaping function (see the Security sections in the WordPress Developer Handbooks), found '$schedule_date_on_key'.
+  77 | ERROR   | All output should be run through an escaping function (see the Security sections in the WordPress Developer Handbooks), found 'wc_help_tip'.
+  81 | ERROR   | Missing doc comment for function price_scheduler_get_new_price()
+  86 | ERROR   | Missing doc comment for function price_schedule_get_date_on()
+  94 | ERROR   | Missing doc comment for function price_scheduler_set_new_price()
+  98 | ERROR   | Missing doc comment for function price_schedule_set_date_on()
+ 105 | ERROR   | Missing doc comment for function price_scheduler_proces_new_price_meta_field()
+ 107 | WARNING | Processing form data without nonce verification.
+ 134 | WARNING | This comment is 67% valid code; is this commented out code?
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Time: 298ms; Memory: 10MB
+
