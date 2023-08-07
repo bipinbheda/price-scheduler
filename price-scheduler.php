@@ -35,21 +35,33 @@ if ( !defined( 'PRICE_SC_PLUGIN_BASENAME' ) ) {
     define( 'PRICE_SC_PLUGIN_BASENAME', plugin_basename( __FILE__ ) ); // Plugin base name
 }
 
+// register_activation_hook(PRICE_SC_FILE, 'price_scheduler_activation');
+
+// price_scheduler_activation();
+function price_scheduler_activation() {
+    wp_clear_scheduled_hook('price_scheduler_daily_cron');
+
+    if ( ! wp_next_scheduled ( 'price_scheduler_daily_cron' ) ) {
+
+        // $gmt_offset = sprintf('%02d:%02d', (int) $gmt_offset, fmod($gmt_offset, 1) * 60);
+
+        $ve = get_option( 'gmt_offset' ) > 0 ? '-' : '+';
+
+        wp_schedule_event( strtotime( '00:00 tomorrow ' . $ve . absint( get_option( 'gmt_offset' ) ) . ' HOURS' ), 'daily', 'price_scheduler_daily_cron' );
+    }
+}
+
+require_once( PRICE_SC_DIR . '/inc/class.admin-price-scheduler.php' );
+require_once( PRICE_SC_DIR . '/inc/class.price-scheduler-cron.php' );
+
 /**
  * Initialize the main class
  */
-if ( ! function_exists( 'price_scheduler' ) ) {
-
-    if ( is_admin() ) {
-        require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-
-        require_once( PRICE_SC_DIR . '/inc/class.admin-price-scheduler.php' );
-    }
+if ( class_exists( 'price_scheduler' ) ) {
 
     function price_scheduler() {
         return price_scheduler::instance();
     }
 
     price_scheduler();
-
 }
