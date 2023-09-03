@@ -20,8 +20,8 @@ if ( ! class_exists( 'price_scheduler_cron' ) ) {
 		}
 
 		private function __construct() {
-			add_action('init', array( $this, 'do_this_hourly' ) );
-			add_action('price_scheduler_daily_cron', array( $this, 'do_this_hourly' ) );
+			// add_action('init', array( $this, 'do_this_hourly' ) );
+			add_action('price_scheduler_daily_cron', array( $this, 'price_scheduler_daily_do_this_daily' ) );
 
 			add_filter( 'woocommerce_product_data_store_cpt_get_products_query', array($this, 'handle_custom_query_var'), 10, 2 );
 		}
@@ -38,9 +38,25 @@ if ( ! class_exists( 'price_scheduler_cron' ) ) {
 			return $query;
 		}
 
-		function do_this_hourly() {
+		public function update_product_price( $product_id ) {
+			if ( ! empty( $product_id ) && is_int( $product_id ) ) {
+				$new_price = get_post_meta( $product_id, 'price_sc_new_regular_price', true );
+				if ( ! empty( $new_price ) ) {
+					$product = wc_get_product( $product_id );
+					$product->set_price( $new_price );
+					$product->set_regular_price( $new_price );
+
+					$product->save();
+
+					return true;
+				}
+			}
+			return false;
+		}
+
+		function price_scheduler_daily_do_this_daily() {
 			if ( ! isset($_GET['test']) ) {
-				return false;
+				// return false;
 			}
 			global $wpdb;
 
@@ -60,6 +76,15 @@ if ( ! class_exists( 'price_scheduler_cron' ) ) {
 				)
 			);
 			$query = new WP_Query( $args );
+			$posts = array_chunk($query->posts, 50);
+
+			if( ! empty( $posts ) ) {
+				foreach ($posts as $chunk_key => $current_chunk) {
+					foreach ($current_chunk as $key => $current_post) {
+						$data = $this->update_product_price($current_post->ID);
+					}
+				}
+			}
 		}
 	}
 
